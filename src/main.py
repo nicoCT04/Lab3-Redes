@@ -11,6 +11,7 @@ import argparse
 import sys
 
 from .algorithms.dijkstra import Dijkstra
+from .algorithms.flooding import Flooding
 from .config import load_names, load_topology
 from .node import Node
 from .transport.socket_transport import SocketTransport
@@ -18,7 +19,7 @@ from .transport.socket_transport import SocketTransport
 # Registro de algoritmos disponibles. Cada integrante agrega el suyo aqui.
 ALGORITHMS = {
     "dijkstra": Dijkstra,
-    # "flooding": Flooding,   # Integrante 2
+    "flooding": Flooding,
     # "lsr": LSR,             # Integrante 3
     # "dvr": DVR,             # Integrante 4
 }
