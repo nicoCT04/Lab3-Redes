@@ -13,7 +13,7 @@ usando distintos algoritmos de enrutamiento.
 | Dijkstra | ✅ listo | Integrante 1 |
 | Flooding | ✅ listo | Integrante 2 |
 | Link State Routing (LSR) | ⬜ pendiente | Integrante 3 |
-| Distance Vector (DVR) | ⬜ pendiente | Integrante 4 |
+| Distance Vector (DVR) | ✅ listo | Integrante 4 |
 
 ## Estructura del proyecto
 
@@ -21,11 +21,12 @@ usando distintos algoritmos de enrutamiento.
 Lab3-Redes/
 ├── config/              # Archivos de topologia y nombres (ejemplos)
 │   ├── topo-example.txt
-│   └── names-example.txt
+│   ├── names-example.txt        # Fase 1: host:port de cada nodo
+│   └── names-xmpp-example.txt   # Fase 2: JID de cada nodo
 ├── src/
 │   ├── protocol.py      # Formato de paquete + serializacion JSON
 │   ├── config.py        # Lectura de topo-*.txt / names-*.txt
-│   ├── transport/       # Capa de transporte (sockets; XMPP en Fase 2)
+│   ├── transport/       # Capa de transporte (sockets en Fase 1, XMPP en Fase 2)
 │   ├── algorithms/      # Un archivo por algoritmo
 │   ├── node.py          # Motor del nodo: hilos forwarding + routing
 │   └── main.py          # CLI para levantar un nodo
@@ -52,7 +53,10 @@ grupos para un mismo algoritmo:
 
 ## Uso
 
-Requiere Python 3 (Fase 1 usa solo la biblioteca estándar, sin dependencias).
+Requiere Python 3. La Fase 1 (sockets) usa solo la biblioteca estándar; la Fase 2
+(XMPP) necesita `pip install -r requirements.txt`.
+
+### Fase 1 — sockets locales
 
 Levantar un nodo por terminal, cada uno con su `--id`:
 
@@ -70,6 +74,27 @@ G hola desde A
 
 El mensaje viaja por la ruta óptima hasta el nodo destino, que lo imprime.
 Escribe `quit` para cerrar el nodo.
+
+### Fase 2 — XMPP
+
+El mismo nodo corre sobre el servidor XMPP del curso agregando `--transport xmpp`.
+Aquí el archivo `names-*.txt` trae el JID de cada nodo en vez de su `host:port`
+(ver `config/names-xmpp-example.txt`):
+
+```bash
+python -m src.main --algo dvr --id A --transport xmpp --topo config/topo-example.txt --names config/names-xmpp.txt
+```
+
+El password se toma de `--password`, de la variable de entorno `XMPP_PASSWORD` o
+se pregunta en la terminal. Opciones adicionales:
+
+| Flag | Para qué sirve |
+|---|---|
+| `--xmpp-host` / `--xmpp-port` | Servidor y puerto, si el dominio del JID no resuelve por DNS |
+| `--xmpp-insecure` | No validar el certificado TLS (servidores con certificado autofirmado) |
+
+Ni el motor del nodo ni los algoritmos cambian entre fases: los dos transportes
+cumplen la misma interfaz `Transport`.
 
 > Para agregar un algoritmo, crea `src/algorithms/<algo>.py` con una subclase de
 > `RoutingAlgorithm` y regístralo en el diccionario `ALGORITHMS` de `src/main.py`.
