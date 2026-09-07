@@ -11,7 +11,7 @@ usando distintos algoritmos de enrutamiento.
 | Algoritmo | Estado | Responsable |
 |---|---|---|
 | Dijkstra | ✅ listo | Integrante 1 |
-| Flooding | ⬜ pendiente | Integrante 2 |
+| Flooding | ✅ listo | Integrante 2 |
 | Link State Routing (LSR) | ⬜ pendiente | Integrante 3 |
 | Distance Vector (DVR) | ⬜ pendiente | Integrante 4 |
 
