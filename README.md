@@ -10,8 +10,8 @@ usando distintos algoritmos de enrutamiento.
 
 | Algoritmo | Estado | Responsable |
 |---|---|---|
-| Flooding | 🚧 en progreso | Integrante 1 |
-| Dijkstra | ⬜ pendiente | Integrante 2 |
+| Dijkstra | ✅ listo | Integrante 1 |
+| Flooding | ⬜ pendiente | Integrante 2 |
 | Link State Routing (LSR) | ⬜ pendiente | Integrante 3 |
 | Distance Vector (DVR) | ⬜ pendiente | Integrante 4 |
 
@@ -52,7 +52,27 @@ grupos para un mismo algoritmo:
 
 ## Uso
 
-_(Se documenta al integrar el primer algoritmo — ver más abajo.)_
+Requiere Python 3 (Fase 1 usa solo la biblioteca estándar, sin dependencias).
+
+Levantar un nodo por terminal, cada uno con su `--id`:
+
+```bash
+python -m src.main --algo dijkstra --id A --topo config/topo-example.txt --names config/names-example.txt
+python -m src.main --algo dijkstra --id G --topo config/topo-example.txt --names config/names-example.txt
+```
+
+Al iniciar, cada nodo imprime su tabla de ruteo. En la consola de un nodo se
+envían mensajes con el formato `<destino> <texto>`:
+
+```
+G hola desde A
+```
+
+El mensaje viaja por la ruta óptima hasta el nodo destino, que lo imprime.
+Escribe `quit` para cerrar el nodo.
+
+> Para agregar un algoritmo, crea `src/algorithms/<algo>.py` con una subclase de
+> `RoutingAlgorithm` y regístralo en el diccionario `ALGORITHMS` de `src/main.py`.
 
 ## Notas de diseño
 
