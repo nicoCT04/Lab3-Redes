@@ -1,0 +1,4 @@
+# Fase 1 (sockets): solo se usa la biblioteca estandar de Python 3, no hay dependencias.
+#
+# Fase 2 (XMPP): descomentar la siguiente linea al implementar el transporte XMPP.
+# slixmpp>=1.8
