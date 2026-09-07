@@ -12,6 +12,7 @@ import sys
 
 from .algorithms.dijkstra import Dijkstra
 from .algorithms.flooding import Flooding
+from .algorithms.lsr import LSR
 from .config import load_names, load_topology
 from .node import Node
 from .transport.socket_transport import SocketTransport
@@ -20,7 +21,7 @@ from .transport.socket_transport import SocketTransport
 ALGORITHMS = {
     "dijkstra": Dijkstra,
     "flooding": Flooding,
-    # "lsr": LSR,             # Integrante 3
+    "lsr": LSR,
     # "dvr": DVR,             # Integrante 4
 }
 
